@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  position: relative;
+}
+
+.hero {
+  z-index: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  max-width: 1400px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.hero h1 {
+  font-size: calc(5rem + 0.9vw);
+  color: hsl(216, 33%, 97%);
+}
+
+.overlay {
+  background: #000;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+}
+
+.logo {
+  margin-top: 3rem;
+}
+
+.admin {
+  padding: 5rem;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.admin input {
+  margin: .25rem;
+}
+
+.admin image {
+
+}
