@@ -20,8 +20,8 @@ build-windows:
 start:
 	go run $(SOURCE_MAIN)
 
-build:
+docker-build:
 	docker build . -t robbymilo/meta-generator
 
 run:
-	docker run -p 3000:3000 --name=meta robbymilo/meta-generator
+	docker run -p 3000:3000 --name=meta --rm robbymilo/meta-generator

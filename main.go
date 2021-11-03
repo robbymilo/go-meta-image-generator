@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	engine := pug.New("views", ".pug")
+	engine := pug.New("/views", ".pug")
 	engine.Debug(true)
 	app := fiber.New(fiber.Config{
 		Views: engine,
