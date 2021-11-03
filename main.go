@@ -3,8 +3,8 @@ package main
 import (
 	"io/ioutil"
 	"log"
-	"os"
 	"net/url"
+	"os"
 
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/proto"
@@ -22,7 +22,7 @@ func main() {
 	})
 
 	app.Get(":file.jpg", func(c *fiber.Ctx) error {
-		img := screenshot(c.Params("file"))
+		img := screenshot(c.Params("file"), c.Query("background", "https://grafana.com/products/assets/cloud-grafana-0.png"))
 		c.Type("jpg")
 		return c.Send([]byte(img))
 	})
@@ -35,15 +35,15 @@ func main() {
 		}
 
 		return c.Render("index", fiber.Map{
-			"message": message,
-			"background": "https://grafana.com/products/assets/cloud-grafana-0.png",
+			"message":    message,
+			"background": c.Query("background", "https://grafana.com/products/assets/cloud-grafana-0.png"),
 		}, "layouts/main")
 	})
 
 	log.Fatal(app.Listen(":3000"))
 }
 
-func screenshot(file string) []byte {
+func screenshot(file string, background string) []byte {
 	name := "cache/" + file + ".jpg"
 
 	if fileExists(name) {
@@ -57,14 +57,13 @@ func screenshot(file string) []byte {
 		return content
 
 	} else {
-		page := rod.New().MustConnect().MustPage("http://localhost:3000/render/" + file + ".jpg").MustWaitLoad()
+
+		page := rod.New().MustConnect().MustPage("http://localhost:3000/render/" + file + ".jpg?background=" + background).MustWaitLoad()
 
 		img, _ := page.Screenshot(true, &proto.PageCaptureScreenshot{
 			Format:  proto.PageCaptureScreenshotFormatJpeg,
 			Quality: 75,
 			Clip: &proto.PageViewport{
-				X:      0,
-				Y:      0,
 				Width:  1200,
 				Height: 700,
 				Scale:  1,
