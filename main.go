@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"net/url"
 
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/proto"
@@ -27,9 +28,14 @@ func main() {
 	})
 
 	app.Get("/render/:file.jpg", func(c *fiber.Ctx) error {
-		// Render index within layouts/main
+
+		message, err := url.QueryUnescape(c.Params("file"))
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		return c.Render("index", fiber.Map{
-			"message": c.Params("file"),
+			"message": message,
 			"background": "https://grafana.com/products/assets/cloud-grafana-0.png",
 		}, "layouts/main")
 	})

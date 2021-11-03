@@ -8,8 +8,8 @@ body {
 }
 
 .container {
-  width: 1200px;
-  height: 700px;
+  width: 100vw;
+  height: 100vh;
   max-width: 100%;
   position: relative;
 }
@@ -20,14 +20,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 700px;
-  max-width: 1200px;
+  height: 100vh;
+  max-width: 1400px;
   margin: auto;
-  padding: 1rem;
+  padding: 0 5rem;
+  word-break: break-all;
 }
 
 .hero h1 {
-  font-size: calc(3rem + 0.9vw);
+  font-size: calc(3rem + 2vw);
   color: hsl(216, 33%, 97%);
 }
 
@@ -35,7 +36,7 @@ body {
   background: #000;
   width: 100%;
   height: 100%;
-  opacity: 0.5;
+  opacity: 0.85;
   position: absolute;
   top: 0;
 }
