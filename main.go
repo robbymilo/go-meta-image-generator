@@ -55,7 +55,7 @@ func screenshot(file string) []byte {
 
 		img, _ := page.Screenshot(true, &proto.PageCaptureScreenshot{
 			Format:  proto.PageCaptureScreenshotFormatJpeg,
-			Quality: 90,
+			Quality: 75,
 			Clip: &proto.PageViewport{
 				X:      0,
 				Y:      0,
