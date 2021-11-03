@@ -58,7 +58,9 @@ func screenshot(file string, background string) []byte {
 
 	} else {
 
-		page := rod.New().MustConnect().MustPage("http://localhost:3000/render/" + file + ".jpg?background=" + background).MustWaitLoad()
+		browser := rod.New().MustConnect()
+		defer browser.MustClose()
+		page := browser.MustPage("http://localhost:3000/render/" + file + ".jpg?background=" + background).MustWaitLoad()
 
 		img, _ := page.Screenshot(true, &proto.PageCaptureScreenshot{
 			Format:  proto.PageCaptureScreenshotFormatJpeg,
