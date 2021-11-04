@@ -3,14 +3,14 @@ WORKDIR /
 COPY . .
 RUN make build-linux
 
-FROM debian:bullseye
-RUN apt-get update && apt-get install unzip wget -y
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-  && apt install ./google-chrome-stable_current_amd64.deb -y
+FROM debian:bullseye-slim
+RUN apt-get update && apt-get install unzip wget chromium -y \
+  && 
 
 RUN wget https://storage.googleapis.com/chromium-browser-snapshots/Linux_x64/901912/chrome-linux.zip \
   && mkdir -p /root/.cache/rod/browser/chromium-901912 \
-  && unzip chrome-linux.zip -d /root/.cache/rod/browser/chromium-901912
+  && unzip chrome-linux.zip -d /root/.cache/rod/browser/chromium-901912 \
+  && rm chrome-linux.zip
 
 COPY views /views
 COPY public /public
