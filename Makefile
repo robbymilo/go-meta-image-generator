@@ -24,4 +24,4 @@ docker-build:
 	docker build . -t robbymilo/go-meta-image-generator
 
 run:
-	docker run -p 3000:3000 --name=meta --rm robbymilo/meta-generator
+	docker run -p 3000:3000 --name=meta --rm robbymilo/go-meta-image-generator
