@@ -21,7 +21,7 @@ start:
 	go run $(SOURCE_MAIN)
 
 docker-build:
-	docker build . -t robbymilo/meta-generator
+	docker build . -t robbymilo/go-meta-image-generator
 
 run:
 	docker run -p 3000:3000 --name=meta --rm robbymilo/meta-generator
