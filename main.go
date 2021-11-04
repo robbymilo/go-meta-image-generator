@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/url"
 	"os"
-	"fmt"
 
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/proto"
@@ -18,8 +17,9 @@ import (
 
 func main() {
 	viewsPtr := flag.String("views", "./views", "location of views directory")
+	publicPtr := flag.String("public", "./public", "location of public directory")
+
 	flag.Parse()
-	fmt.Println("word:", *viewsPtr)
 
 	engine := pug.New(*viewsPtr, ".pug")
 	engine.Debug(true)
@@ -27,8 +27,10 @@ func main() {
 		Views: engine,
 	})
 
+	app.Static("/", *publicPtr)
+
 	app.Get(":file.jpg", func(c *fiber.Ctx) error {
-		img := screenshot(c.Params("file"), c.Query("background", "https://grafana.com/products/assets/cloud-grafana-0.png"))
+		img := screenshot(c.Params("file"), c.Query("background", "/grafana-dashboard.png"))
 		c.Type("jpg")
 		return c.Send([]byte(img))
 	})
@@ -42,7 +44,7 @@ func main() {
 
 		return c.Render("index", fiber.Map{
 			"message":    message,
-			"background": c.Query("background", "https://grafana.com/products/assets/cloud-grafana-0.png"),
+			"background": c.Query("background", "/grafana-dashboard.png"),
 		}, "layouts/main")
 	})
 

@@ -13,6 +13,7 @@ RUN wget https://storage.googleapis.com/chromium-browser-snapshots/Linux_x64/901
   && unzip chrome-linux.zip -d /root/.cache/rod/browser/chromium-901912
 
 COPY views /views
+COPY public /public
 
 COPY --from=build-env /bin/meta-generator_linux-amd64 /usr/bin/meta-generator_linux-amd64
-ENTRYPOINT ["/usr/bin/meta-generator_linux-amd64", "-views=/views"]
+ENTRYPOINT ["/usr/bin/meta-generator_linux-amd64", "-views=/views", "-public=/public"]
