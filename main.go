@@ -1,10 +1,12 @@
 package main
 
 import (
+	"flag"
 	"io/ioutil"
 	"log"
 	"net/url"
 	"os"
+	"fmt"
 
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/proto"
@@ -15,7 +17,11 @@ import (
 )
 
 func main() {
-	engine := pug.New("/views", ".pug")
+	viewsPtr := flag.String("views", "./views", "location of views directory")
+	flag.Parse()
+	fmt.Println("word:", *viewsPtr)
+
+	engine := pug.New(*viewsPtr, ".pug")
 	engine.Debug(true)
 	app := fiber.New(fiber.Config{
 		Views: engine,

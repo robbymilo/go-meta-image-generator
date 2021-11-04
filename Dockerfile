@@ -11,4 +11,4 @@ RUN apt install ./google-chrome-stable_current_amd64.deb -y
 COPY views /views
 
 COPY --from=build-env /bin/meta-generator_linux-amd64 /usr/bin/meta-generator_linux-amd64
-ENTRYPOINT /usr/bin/meta-generator_linux-amd64
+ENTRYPOINT ["/usr/bin/meta-generator_linux-amd64", "-views=/views"]
