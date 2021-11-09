@@ -35,17 +35,10 @@ func main() {
 
 	app.Get(":file.jpg", func(c *fiber.Ctx) error {
 
-		// get signature from query param
 		signature := c.Query("signature")
-		sDec, _ := b64.StdEncoding.DecodeString(signature)
-
-		// generate sha to compare
 		file, _ := url.QueryUnescape(c.Params("file"))
-		input := []byte(file + "milo")
-		sCompare := sha256.Sum256(input)
 
-		// test if signatures match
-		if hex.EncodeToString(sCompare[:]) == string(sDec) {
+		if isSigned(signature, file) {
 			img := screenshot(c.Params("file"), c.Query("background", "/grafana-dashboard.png"), *cachePtr)
 			c.Type("jpg")
 			return c.Send([]byte(img))
@@ -113,4 +106,27 @@ func fileExists(filename string) bool {
 		return false
 	}
 	return !info.IsDir()
+}
+
+func isSigned(signature string, file string) bool {
+
+	s := os.Getenv("SIGNATURE");
+
+	if len(s) > 0 {
+		// get signature from query param
+		sDec, _ := b64.StdEncoding.DecodeString(signature)
+
+		// generate sha to compare
+		input := []byte(file + s)
+		sCompare := sha256.Sum256(input)
+
+		// test if signatures match
+		if hex.EncodeToString(sCompare[:]) != string(sDec) {
+			return false
+		}
+		return true
+	}
+
+	return true
+
 }
