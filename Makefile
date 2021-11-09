@@ -18,7 +18,7 @@ build-windows:
 	CGO_ENABLED=0 GOOS=windows GOARCH=$(TARGET_ARCH) go build -ldflags "$(LDFLAGS)" -o bin/$(TARGET_BIN)_windows-amd64.exe $(SOURCE_MAIN)
 
 start:
-	go run $(SOURCE_MAIN)
+	go run $(SOURCE_MAIN) -cache=./cache2
 
 docker-build:
 	docker build . -t robbymilo/go-meta-image-generator

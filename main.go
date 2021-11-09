@@ -18,6 +18,7 @@ import (
 func main() {
 	viewsPtr := flag.String("views", "./views", "location of views directory")
 	publicPtr := flag.String("public", "./public", "location of public directory")
+	cachePtr := flag.String("cache", "./cache", "location of cache directory")
 
 	flag.Parse()
 
@@ -30,7 +31,7 @@ func main() {
 	app.Static("/", *publicPtr)
 
 	app.Get(":file.jpg", func(c *fiber.Ctx) error {
-		img := screenshot(c.Params("file"), c.Query("background", "/grafana-dashboard.png"))
+		img := screenshot(c.Params("file"), c.Query("background", "/grafana-dashboard.png"), *cachePtr)
 		c.Type("jpg")
 		return c.Send([]byte(img))
 	})
@@ -51,8 +52,8 @@ func main() {
 	log.Fatal(app.Listen(":3000"))
 }
 
-func screenshot(file string, background string) []byte {
-	name := "cache/" + file + ".jpg"
+func screenshot(file string, background string, cache string) []byte {
+	name := cache + "/" + file + ".jpg"
 
 	if fileExists(name) {
 

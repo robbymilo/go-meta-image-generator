@@ -20,8 +20,9 @@ ENV HOME=/home/pptuser
 
 COPY views /home/pptuser/views
 COPY public /home/pptuser/public
+RUN mkdir -p /home/pptuser/cache
 
 EXPOSE 3000
 
 COPY --from=build-env /bin/meta-generator_linux-amd64 /usr/bin/meta-generator_linux-amd64
-ENTRYPOINT ["/usr/bin/meta-generator_linux-amd64", "-views=/home/pptuser/views", "-public=/home/pptuser/public"]
+ENTRYPOINT ["/usr/bin/meta-generator_linux-amd64", "-views=/home/pptuser/views", "-public=/home/pptuser/public", "-cache=/home/pptuser/cache"]
