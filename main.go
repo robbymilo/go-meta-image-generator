@@ -1,6 +1,9 @@
 package main
 
 import (
+	"crypto/sha256"
+	b64 "encoding/base64"
+	"encoding/hex"
 	"flag"
 	"io/ioutil"
 	"log"
@@ -31,9 +34,25 @@ func main() {
 	app.Static("/", *publicPtr)
 
 	app.Get(":file.jpg", func(c *fiber.Ctx) error {
-		img := screenshot(c.Params("file"), c.Query("background", "/grafana-dashboard.png"), *cachePtr)
-		c.Type("jpg")
-		return c.Send([]byte(img))
+
+		// get signature from query param
+		signature := c.Query("signature")
+		sDec, _ := b64.StdEncoding.DecodeString(signature)
+
+		// generate sha to compare
+		file, _ := url.QueryUnescape(c.Params("file"))
+		input := []byte(file + "milo")
+		sCompare := sha256.Sum256(input)
+
+		// test if signatures match
+		if hex.EncodeToString(sCompare[:]) == string(sDec) {
+			img := screenshot(c.Params("file"), c.Query("background", "/grafana-dashboard.png"), *cachePtr)
+			c.Type("jpg")
+			return c.Send([]byte(img))
+		} else {
+			return c.SendStatus(403)
+		}
+
 	})
 
 	app.Get("/render/:file.jpg", func(c *fiber.Ctx) error {
