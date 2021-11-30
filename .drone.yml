@@ -8,16 +8,16 @@ platform:
   arch: amd64
 
 steps:
-  - name: build
-    image: plugins/docker
-    settings:
-      repo: robbymilo/go-meta-image-generator
-      tags: latest
-      dry_run: true
-    when:
-      branch:
-        include:
-          - master
+- name: build
+  image: plugins/docker
+  settings:
+    repo: robbymilo/go-meta-image-generator
+    tags: latest
+    dry_run: true
+  when:
+    branch:
+      include:
+        - master
 
 trigger:
   event:
