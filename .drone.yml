@@ -1,0 +1,25 @@
+---
+kind: pipeline
+type: docker
+name: push
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: build
+    image: plugins/docker
+    settings:
+      repo: robbymilo/go-meta-image-generator
+      tags: latest
+      dry_run: true
+    when:
+      branch:
+        include:
+          - master
+
+trigger:
+  event:
+  - push
+
