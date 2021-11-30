@@ -11,9 +11,12 @@ steps:
 - name: build
   image: plugins/docker
   settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
     repo: robbymilo/go-meta-image-generator
     tags: latest
-    dry_run: true
   when:
     branch:
       include:
