@@ -10,6 +10,7 @@ An open graph meta image generator for social previews.
 ## To run locally:
 - Confirm Go is installed: `go version`
 - Clone this repo: `git clone git@github.com:robbymilo/go-meta-image-generator.git && cd go-meta-image-generator`
+- Run `go mod download`
 - Run locally: `make start`
 - Visit `localhost:3000/Hello World!.jpg` in your browser.
 
