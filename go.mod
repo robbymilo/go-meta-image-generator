@@ -1,4 +1,4 @@
-module github.com/robbymilo/meta-generator
+module github.com/robbymilo/go-meta-image-generator
 
 go 1.15
 
