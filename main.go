@@ -61,6 +61,10 @@ func main() {
 		}, "layouts/main")
 	})
 
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendStatus(200)
+	})
+
 	log.Fatal(app.Listen(":3000"))
 }
 
