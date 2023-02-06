@@ -1,3 +1,5 @@
+[![Build Status](https://ci.rmilo.dev/api/badges/robbymilo/go-meta-image-generator/status.svg)](https://ci.rmilo.dev/robbymilo/go-meta-image-generator)
+
 # Meta Image Generator
 
 An open graph meta image generator for social previews.
