@@ -16,7 +16,9 @@ steps:
     password:
       from_secret: docker_password
     repo: robbymilo/go-meta-image-generator
-    tags: latest
+    tags:
+      - ${DRONE_COMMIT_SHA}
+      - latest
   when:
     branch:
       include:
