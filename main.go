@@ -109,7 +109,12 @@ func main() {
 					// generate, save, and serve a new file
 					file, _ := generataeScreenshot(title)
 
-					err := os.WriteFile(path, file, 0644)
+					err := os.MkdirAll(filepath.Dir(path), os.ModePerm)
+					if err != nil {
+						fmt.Println("error creating cache dir:", err)
+					}
+
+					err = os.WriteFile(path, file, 0644)
 					if err != nil {
 						fmt.Println("error caching generated file:", err)
 					}
