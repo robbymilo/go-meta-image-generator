@@ -107,7 +107,7 @@ func main() {
 
 				} else {
 					// generate, save, and serve a new file
-					file, _ := generataeScreenshot(title)
+					file, _ := generateScreenshot(title)
 
 					err := os.MkdirAll(filepath.Dir(path), os.ModePerm)
 					if err != nil {
@@ -143,7 +143,7 @@ func main() {
 	}
 }
 
-func generataeScreenshot(title string) ([]byte, error) {
+func generateScreenshot(title string) ([]byte, error) {
 	browser := rod.New().MustConnect()
 	defer browser.MustClose()
 	page := browser.MustPage("http://localhost:3000/render/" + title + ".jpg").MustWaitLoad()
