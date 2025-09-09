@@ -5,7 +5,7 @@ go 1.21
 toolchain go1.22.1
 
 require (
-	github.com/go-chi/chi/v5 v5.0.12
+	github.com/go-chi/chi/v5 v5.2.2
 	github.com/go-rod/rod v0.114.8
 	github.com/urfave/cli/v2 v2.27.1
 )
